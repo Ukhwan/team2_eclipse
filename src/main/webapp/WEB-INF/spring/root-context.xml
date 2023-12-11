@@ -24,11 +24,11 @@
 		class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
 	</bean>
-	<!-- <bean id="jdbcInitializer" class="org.springframework.jdbc.datasource.init.DataSourceInitializer"> 
-		<property name="dataSource" ref="dataSource" /> <property name="databasePopulator"> 
-		<bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator"> 
-		<property name="scripts"> <list> <value>classpath:init.sql</value> </list> 
-		</property> </bean> </property> </bean> -->
+	<!-- jdbctemplate -->
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource-hikari" />
+	</bean>
 	<!-- MyBatis SqlSessionFactory 설정 -->
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">

@@ -113,6 +113,7 @@ public class ScheduleController {
 			
 			List<Map<String, Object>> dbDataList = oracleRepository.getFromOracleDatabase();
 			String key = URLEncoder.encode(pkey, "UTF-8");
+			System.out.println(dbDataList);
 			if (dbDataList.isEmpty()) {
 				String apiURL="http://apis.data.go.kr/B551011/KorService1/categoryCode1?serviceKey=" + key +
 		                "&numOfRows=2000&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
@@ -201,7 +202,7 @@ public class ScheduleController {
 	    if (code.length() == 3) {
 	        apiURL = "http://apis.data.go.kr/B551011/KorService1/categoryCode1?serviceKey=" + key +
 	                "&numOfRows=2000&pageNo=1&MobileOS=ETC&MobileApp=AppTest&cat1=" + code + "&_type=json";
-	    } else {
+	    }else {
 	        apiURL = "http://apis.data.go.kr/B551011/KorService1/categoryCode1?serviceKey=" + key +
 	                "&numOfRows=2000&pageNo=1&MobileOS=ETC&MobileApp=AppTest&cat1=" + code.substring(0, 3) +
 	                "&cat2=" + code + "&_type=json";
@@ -222,7 +223,7 @@ class OracleRepository {
         jdbcTemplate.update(sql, cod, nam);
     }
     public List<Map<String, Object>> getFromOracleDatabase() {
-    	String sql = "SELECT cod, nam FROM cat";
+    	String sql = "SELECT cod, nam FROM cat order by  cod desc";
     	
         return jdbcTemplate.query(sql, new RowMapper<Map<String, Object>>() {
             @Override
